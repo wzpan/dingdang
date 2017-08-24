@@ -30,6 +30,7 @@ def handle(text, mic, profile, wxbot=None):
     horizontal_flip = False
     send_to_user = True
     sound = True
+    usb_camera = False
     # read config
     if profile[SLUG] and 'enable' in profile[SLUG] and \
        profile[SLUG]['enable']:
@@ -54,6 +55,9 @@ def handle(text, mic, profile, wxbot=None):
         if 'sound' in profile[SLUG] and \
            not profile[SLUG]['sound']:
             sound = False
+        if 'usb_camera' in profile[SLUG] and \
+                profile[SLUG]['usb_camera']:
+            usb_camera = True
         if any(word in text for word in [u"安静", u"偷偷", u"悄悄"]):
             sound = False
         try:
@@ -63,16 +67,25 @@ def handle(text, mic, profile, wxbot=None):
             mic.say(u"抱歉，照片目录创建失败")
             return
         dest_file = os.path.join(dest_path, "%s.jpg" % time.time())
-        command = ['raspistill', '-o', dest_file, '-q', str(quality)]
-        if count_down > 0 and sound:
-            command.extend(['-t', str(count_down*1000)])
-        if vertical_flip:
-            command.append('-vf')
-        if horizontal_flip:
-            command.append('-hf')
+        if usb_camera:
+            command = "fswebcam --no-banner -r 1024x765 -q "
+            if vertical_flip:
+                command = command+' -s v '
+            if horizontal_flip:
+                command = command+'-s h '
+            command = command+dest_file
+        else:
+            command = ['raspistill', '-o', dest_file, '-q', str(quality)]
+            if count_down > 0 and sound:
+                command.extend(['-t', str(count_down*1000)])
+            if vertical_flip:
+                command.append('-vf')
+            if horizontal_flip:
+                command.append('-hf')
         if sound and count_down > 0:
             mic.say(u"收到，%d秒后启动拍照" % count_down)
-        process = subprocess.Popen(command)
+        if usb_camera: time.sleep(count_down) #如果是USB摄像头就几秒后拍照
+        process = subprocess.Popen(command,shell=usb_camera)
         res = process.wait()
         if res != 0:
             if sound:
