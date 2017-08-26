@@ -83,7 +83,7 @@ def handle(text, mic, profile, wxbot=None):
             if horizontal_flip:
                 command.append('-hf')
         if sound and count_down > 0:
-            mic.say(u"收到，%d秒后启动拍照" % count_down)
+            mic.say(u"收到，%d秒后启动拍照" % (count_down))
             if usb_camera: time.sleep(count_down)
         process = subprocess.Popen(command,shell=usb_camera)
         res = process.wait()
