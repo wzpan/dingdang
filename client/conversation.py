@@ -6,7 +6,6 @@ import time
 
 
 class Conversation(object):
-
     def __init__(self, persona, mic, profile):
         self._logger = logging.getLogger(__name__)
         self.persona = persona
@@ -26,7 +25,7 @@ class Conversation(object):
         else:
             if self.profile['do_not_bother']['enable']:
                 if 'since' not in self.profile['do_not_bother'] or \
-                   'till' not in self.profile['do_not_bother']:
+                                'till' not in self.profile['do_not_bother']:
                     return True
                 else:
                     since = self.profile['do_not_bother']['since']
