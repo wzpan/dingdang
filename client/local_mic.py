@@ -8,6 +8,8 @@ implementation, Dingdang is always active listening with local_mic.
 
 class Mic:
     prev = None
+    stop_passive = False
+    skip_passive = False
 
     def __init__(self, config, speaker, passive_stt_engine, active_stt_engine):
         return
