@@ -320,8 +320,6 @@ class IFLYTEAKSTT(AbstractSTTEngine):
         self._logger = logging.getLogger(__name__)
         self.api_id = api_id
         self.api_key = api_key
-
-
     @classmethod
     def get_config(cls):
         # FIXME: Replace this as soon as we have a config module
@@ -351,7 +349,6 @@ class IFLYTEAKSTT(AbstractSTTEngine):
         Param = '{"auf":"16k","aue":"raw","scene":"main"}'
         XParam = base64.b64encode(Param)
         n_frames = wav_file.getnframes()
-        frame_rate = wav_file.getframerate()
         audio = wav_file.readframes(n_frames)
         base_data = base64.b64encode(audio)
         data = {'data': base_data}
@@ -455,7 +452,6 @@ class ALIBABASTT(AbstractSTTEngine):
                                   exc_info=True)
             return []
         n_frames = wav_file.getnframes()
-        frame_rate = wav_file.getframerate()
         audio = wav_file.readframes(n_frames)
         date = datetime.datetime.strftime(datetime.datetime.utcnow(), "%a, %d %b %Y %H:%M:%S GMT")
         options = {
@@ -484,11 +480,7 @@ class ALIBABASTT(AbstractSTTEngine):
 
         authHeader = 'Dataplus ' + self.ak_id + ':' + signature
         headers['authorization'] = authHeader
-
-        request = None
-        method = options['method']
         url = options['url']
-
         r = requests.post(url, data=self.body, headers=headers, verify=False)
         try:
             text = ''
