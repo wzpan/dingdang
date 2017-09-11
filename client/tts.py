@@ -18,11 +18,6 @@ import urllib
 import requests
 from abc import ABCMeta, abstractmethod
 from uuid import getnode as get_mac
-import datetime
-import base64
-import hmac
-import hashlib
-import json
 
 import argparse
 import yaml
