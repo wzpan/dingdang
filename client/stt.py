@@ -304,7 +304,7 @@ class BaiduSTT(AbstractSTTEngine):
     def is_available(cls):
         return diagnose.check_network_connection()
 
-    
+
 class IFlyTekSTT(AbstractSTTEngine):
     """
     科大讯飞的语音识别API.
@@ -320,7 +320,7 @@ class IFlyTekSTT(AbstractSTTEngine):
         self._logger = logging.getLogger(__name__)
         self.api_id = api_id
         self.api_key = api_key
-        
+
     @classmethod
     def get_config(cls):
         # FIXME: Replace this as soon as we have a config module
@@ -354,8 +354,8 @@ class IFlyTekSTT(AbstractSTTEngine):
         base_data = base64.b64encode(audio)
         data = {'data': base_data}
         m = hashlib.md5()
-        m.update(self.api_key + str(int(time.time())) + \
-                 XParam + 'data=' + base_data)
+        m.update(self.api_key + str(int(time.time())) 
+                 + XParam + 'data=' + base_data)
         checksum = m.hexdigest()
 
         headers = {
@@ -455,7 +455,7 @@ class ALiBaBaSTT(AbstractSTTEngine):
             return []
         n_frames = wav_file.getnframes()
         audio = wav_file.readframes(n_frames)
-        date = datetime.datetime.strftime(datetime.datetime.utcnow(), \
+        date = datetime.datetime.strftime(datetime.datetime.utcnow(), 
                                           "%a, %d %b %Y %H:%M:%S GMT")
         options = {
             'url': 'https://nlsapi.aliyun.com/recognize?model=chat',
@@ -478,8 +478,8 @@ class ALiBaBaSTT(AbstractSTTEngine):
         if not self.body == '':
             bodymd5 = self.to_md5_base64(self.body)
 
-        stringToSign = options['method'] + '\n' + headers['accept'] + '\n' + bodymd5 \
-        + '\n' + headers['content-type'] + '\n' + headers['date']
+        stringToSign = options['method'] + '\n' + headers['accept'] + '\n'\
+        + bodymd5 + '\n' + headers['content-type'] + '\n' + headers['date']
         signature = self.to_sha1_base64(stringToSign, self.ak_secret)
 
         authHeader = 'Dataplus ' + self.ak_id + ':' + signature
