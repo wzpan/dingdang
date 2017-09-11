@@ -305,7 +305,7 @@ class BaiduSTT(AbstractSTTEngine):
     def is_available(cls):
         return diagnose.check_network_connection()
     
-class IFLYTEAKSTT(AbstractSTTEngine):
+class IFlyTekSTT(AbstractSTTEngine):
     """
     科大讯飞的语音识别API.
     要使用本模块, 首先到 http://aiui.xfyun.cn/default/index 注册一个开发者账号,
@@ -397,7 +397,7 @@ class IFLYTEAKSTT(AbstractSTTEngine):
         return diagnose.check_network_connection()
 
 
-class ALIBABASTT(AbstractSTTEngine):
+class ALiBaBaSTT(AbstractSTTEngine):
     """
     阿里云的语音识别API.
     要使用本模块, 首先到 https://data.aliyun.com/product/nls 注册一个开发者账号,
