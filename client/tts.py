@@ -517,10 +517,11 @@ class BaiduTTS(AbstractMp3TTSEngine):
         if tmpfile is not None:
             self.play_mp3(tmpfile)
             os.remove(tmpfile)
+
+
 class IFlyTekTTS(AbstractMp3TTSEngine):
     """
     使用讯飞的语音合成技术
-
     要使用本模块, 请先在 profile.xml 中启用本模块并选择合适的发音人.
 
     """
@@ -550,7 +551,6 @@ class IFlyTekTTS(AbstractMp3TTSEngine):
     def is_available(cls):
         return diagnose.check_network_connection()
 
-
     def split_sentences(self, text):
         punctuations = ['.', '。', ';', '；', '\n']
         for i in punctuations:
@@ -567,7 +567,8 @@ class IFlyTekTTS(AbstractMp3TTSEngine):
         content = urllib.quote(phrase.encode('utf8'))
         ts = result_info['ts']
         sign = result_info['sign']
-        voice_url = voice_baseurl + ts + '&sign=' + sign + '&vid=' + self.vid + '&volume=&speed=0&content=' + content
+        voice_url = voice_baseurl + ts + '&sign=' + sign + \
+                    '&vid=' + self.vid + '&volume=&speed=0&content=' + content
         r = requests.get(voice_url)
         with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as f:
             f.write(r.content)
