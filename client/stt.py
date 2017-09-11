@@ -18,7 +18,6 @@ import time
 import hashlib
 import datetime
 import hmac
-import urllib2
 
 import sys
 
@@ -304,6 +303,7 @@ class BaiduSTT(AbstractSTTEngine):
     @classmethod
     def is_available(cls):
         return diagnose.check_network_connection()
+
     
 class IFlyTekSTT(AbstractSTTEngine):
     """
@@ -320,6 +320,7 @@ class IFlyTekSTT(AbstractSTTEngine):
         self._logger = logging.getLogger(__name__)
         self.api_id = api_id
         self.api_key = api_key
+        
     @classmethod
     def get_config(cls):
         # FIXME: Replace this as soon as we have a config module
@@ -353,14 +354,16 @@ class IFlyTekSTT(AbstractSTTEngine):
         base_data = base64.b64encode(audio)
         data = {'data': base_data}
         m = hashlib.md5()
-        m.update(self.api_key + str(int(time.time())) + XParam + 'data=' + base_data)
+        m.update(self.api_key + str(int(time.time())) + \
+                 XParam + 'data=' + base_data)
         checksum = m.hexdigest()
 
-        headers = {'X-Appid':self.api_id,
-                'X-CurTime':str(int(time.time())),
-                'X-Param':XParam,
-                'X-CheckSum':checksum}
-
+        headers = {
+            'X-Appid': self.api_id,
+            'X-CurTime': str(int(time.time())),
+            'X-Param': Param,
+            'X-CheckSum': checksum
+        }
         r = requests.post('http://api.xfyun.cn/v1/aiui/v1/iat',
                           data=data,
                           headers=headers)
@@ -412,7 +415,6 @@ class ALiBaBaSTT(AbstractSTTEngine):
         self.ak_id = ak_id
         self.ak_secret = ak_secret
 
-
     @classmethod
     def get_config(cls):
         # FIXME: Replace this as soon as we have a config module
@@ -431,7 +433,7 @@ class ALiBaBaSTT(AbstractSTTEngine):
                             profile['ali_yuyin']['ak_secret']
         return config
 
-    def to_md5_base64(self,strBody):
+    def to_md5_base64(self, strBody):
         hash = hashlib.md5()
         hash.update(self.body)
         m = hash.digest().encode('base64').strip()
@@ -439,7 +441,7 @@ class ALiBaBaSTT(AbstractSTTEngine):
         hash.update(m)
         return hash.digest().encode('base64').strip()
 
-    def to_sha1_base64(self,stringToSign, secret):
+    def to_sha1_base64(self, stringToSign, secret):
         hmacsha1 = hmac.new(secret, stringToSign, hashlib.sha1)
         return base64.b64encode(hmacsha1.digest())
 
@@ -453,7 +455,8 @@ class ALiBaBaSTT(AbstractSTTEngine):
             return []
         n_frames = wav_file.getnframes()
         audio = wav_file.readframes(n_frames)
-        date = datetime.datetime.strftime(datetime.datetime.utcnow(), "%a, %d %b %Y %H:%M:%S GMT")
+        date = datetime.datetime.strftime(datetime.datetime.utcnow(), \
+                                          "%a, %d %b %Y %H:%M:%S GMT")
         options = {
             'url': 'https://nlsapi.aliyun.com/recognize?model=chat',
             'method': 'POST',
@@ -475,7 +478,8 @@ class ALiBaBaSTT(AbstractSTTEngine):
         if not self.body == '':
             bodymd5 = self.to_md5_base64(self.body)
 
-        stringToSign = options['method'] + '\n' + headers['accept'] + '\n' + bodymd5 + '\n' + headers['content-type'] + '\n' + headers['date']
+        stringToSign = options['method'] + '\n' + headers['accept'] + '\n' + bodymd5 \
+        + '\n' + headers['content-type'] + '\n' + headers['date']
         signature = self.to_sha1_base64(stringToSign, self.ak_secret)
 
         authHeader = 'Dataplus ' + self.ak_id + ':' + signature
