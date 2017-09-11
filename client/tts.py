@@ -517,8 +517,6 @@ class BaiduTTS(AbstractMp3TTSEngine):
         if tmpfile is not None:
             self.play_mp3(tmpfile)
             os.remove(tmpfile)
-            
- 
 class IFlyTekTTS(AbstractMp3TTSEngine):
     """
     使用讯飞的语音合成技术
