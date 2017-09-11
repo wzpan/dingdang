@@ -568,7 +568,7 @@ class IFlyTekTTS(AbstractMp3TTSEngine):
         ts = result_info['ts']
         sign = result_info['sign']
         voice_url = voice_baseurl + ts + '&sign=' + sign + \
-                    '&vid=' + self.vid + '&volume=&speed=0&content=' + content
+            '&vid=' + self.vid + '&volume=&speed=0&content=' + content
         r = requests.get(voice_url)
         with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as f:
             f.write(r.content)
