@@ -14,6 +14,11 @@ import dingdangpath
 import diagnose
 import vocabcompiler
 from uuid import getnode as get_mac
+import time
+import hashlib
+import datetime
+import hmac
+import urllib2
 
 import sys
 
