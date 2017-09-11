@@ -479,8 +479,8 @@ class ALiBaBaSTT(AbstractSTTEngine):
             bodymd5 = self.to_md5_base64(self.body)
 
         stringToSign = options['method'] + '\n' + \
-                       headers['accept'] + '\n' + bodymd5 + '\n' + \
-                       headers['content-type'] + '\n' + headers['date']
+            headers['accept'] + '\n' + bodymd5 + '\n' + \
+            headers['content-type'] + '\n' + headers['date']
         signature = self.to_sha1_base64(stringToSign, self.ak_secret)
 
         authHeader = 'Dataplus ' + self.ak_id + ':' + signature
