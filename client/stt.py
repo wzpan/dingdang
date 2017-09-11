@@ -354,7 +354,7 @@ class IFlyTekSTT(AbstractSTTEngine):
         base_data = base64.b64encode(audio)
         data = {'data': base_data}
         m = hashlib.md5()
-        m.update(self.api_key + str(int(time.time())) 
+        m.update(self.api_key + str(int(time.time()))
                  + XParam + 'data=' + base_data)
         checksum = m.hexdigest()
 
@@ -455,7 +455,7 @@ class ALiBaBaSTT(AbstractSTTEngine):
             return []
         n_frames = wav_file.getnframes()
         audio = wav_file.readframes(n_frames)
-        date = datetime.datetime.strftime(datetime.datetime.utcnow(), 
+        date = datetime.datetime.strftime(datetime.datetime.utcnow(),
                                           "%a, %d %b %Y %H:%M:%S GMT")
         options = {
             'url': 'https://nlsapi.aliyun.com/recognize?model=chat',
@@ -479,7 +479,7 @@ class ALiBaBaSTT(AbstractSTTEngine):
             bodymd5 = self.to_md5_base64(self.body)
 
         stringToSign = options['method'] + '\n' + headers['accept'] + '\n'\
-        + bodymd5 + '\n' + headers['content-type'] + '\n' + headers['date']
+                       + bodymd5 + '\n' + headers['content-type'] + '\n' + headers['date']
         signature = self.to_sha1_base64(stringToSign, self.ak_secret)
 
         authHeader = 'Dataplus ' + self.ak_id + ':' + signature
