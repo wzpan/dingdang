@@ -16,6 +16,10 @@ import pipes
 import logging
 import urllib
 import requests
+import datetime
+import base64
+import hmac
+import hashlib
 from abc import ABCMeta, abstractmethod
 from uuid import getnode as get_mac
 
