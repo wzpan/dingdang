@@ -631,7 +631,7 @@ class ALiBaBaTTS(AbstractMp3TTSEngine):
 
     def get_current_date(self):
         date = datetime.datetime.strftime(datetime.datetime.utcnow(),
-            "%a, %d %b %Y %H: %M: %S GMT")
+                                          "%a, %d %b %Y %H: %M: %S GMT")
         return date
 
     def to_md5_base64(self, strBody):
@@ -645,8 +645,8 @@ class ALiBaBaTTS(AbstractMp3TTSEngine):
 
     def get_speech(self, phrase):
         options = {
-            'url': 'http://nlsapi.aliyun.com/speak?encode_type=mp3&
-                voice_name=' + self.voice_name + '&volume=50',
+            'url': 'http://nlsapi.aliyun.com/speak?encode_type=mp3&voice_name=' \
+                + self.voice_name + '&volume=50',
             'method': 'POST',
             'body': phrase.encode('utf8'),
         }
@@ -666,7 +666,7 @@ class ALiBaBaTTS(AbstractMp3TTSEngine):
             bodymd5 = self.to_md5_base64(body)
 
         stringToSign = options['method'] + '\n' + headers['accept'] + '\n' + \
-             bodymd5 + '\n' + headers['content-type'] + '\n' + headers['date']
+            bodymd5 + '\n' + headers['content-type'] + '\n' + headers['date']
         signature = self.to_sha1_base64(stringToSign, self.ak_secret)
         authHeader = 'Dataplus ' + self.ak_id + ':' + signature
         headers['authorization'] = authHeader
