@@ -428,7 +428,7 @@ class BaiduTTS(AbstractMp3TTSEngine):
         baidu_yuyin: 'AIzaSyDoHmTEToZUQrltmORWS4Ott0OHVA62tw8'
             api_key: 'LMFYhLdXSSthxCNLR7uxFszQ'
             secret_key: '14dbd10057xu7b256e537455698c0e4e'
-        ...
+    ...
     """
 
     SLUG = "baidu-tts"
