@@ -645,8 +645,8 @@ class ALiBaBaTTS(AbstractMp3TTSEngine):
 
     def get_speech(self, phrase):
         options = {
-            'url': 'http://nlsapi.aliyun.com/speak?
-                encode_type=mp3&voice_name='+ self.voice_name + '&volume=50',
+            'url': 'http://nlsapi.aliyun.com/speak?encode_type=' +
+                'mp3&voice_name=' + self.voice_name + '&volume=50',
             'method': 'POST',
             'body': phrase.encode('utf8'),
         }
