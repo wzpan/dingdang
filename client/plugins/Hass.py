@@ -25,6 +25,7 @@ def handle(text,mic,profile,wxbot=None):
 	while not input:
 		mic.say(u"请重新说")
 		input = mic.activeListen(MUSIC=True)
+
 	hass(input,mic,profile)
 		
 def hass(text,mic,profile):
