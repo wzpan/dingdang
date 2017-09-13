@@ -23,8 +23,8 @@ def handle(text, mic, profile, wxbot=None):
 def hass(text, mic, profile):
     logger = logging.getLogger(__name__)
     if profile[SLUG] or 'url' not in profile[SLUG] or \
-'port' not in profile[SLUG] or \
-'password' not in profile[SLUG]:
+       'port' not in profile[SLUG] or \
+       'password' not in profile[SLUG]:
         mic.say(u"主人配置有误")
         return
     url = profile[SLUG]['url']
@@ -63,11 +63,11 @@ def hass(text, mic, profile):
                         newState = "turn_on"
                     elif any(word in text for word in [u"停止", u"结束", u"退出"]):
                         newState = "turn_off"
-                    payload = json.dumps({"entity_id": device["entity_id"]})
-					url_switch = url + ":" + port + "/api/services/switch/" + newState
-                    request = requests.post(url_switch, headers=headers, data=payload)
+                    p = json.dumps({"entity_id": device["entity_id"]})
+                    url_s = url + ":" + port + "/api/services/switch/" + newState
+                    request = requests.post(url_s, headers=headers, data=p)
                     if format(request.status_code) == "200" or \
-format(request.status_code) == "201":
+                       format(request.status_code) == "201":
                         mic.say(u"执行成功")
                     else:
                         mic.say(u"对不起,执行失败")
@@ -85,5 +85,5 @@ def isAction(text):
 
 def isValid(text):
     return any(word in text for word in [u"开启家庭助手", \
-u"开启助手", u"打开家庭助手", u"打开助手", \
-u"家庭助手"])
+                                         u"开启助手", u"打开家庭助手", u"打开助手", \
+                                         u"家庭助手"])
