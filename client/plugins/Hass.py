@@ -60,11 +60,11 @@ def hass(text, mic, profile):
             elif device_domain == "switch" and isAction(text):
                 try:
                     if any(word in text for word in [u"开始", u"打开", u"开启"]):
-                        newState = "turn_on"
+                        newS = "turn_on"
                     elif any(word in text for word in [u"停止", u"结束", u"退出"]):
-                        newState = "turn_off"
+                        newS = "turn_off"
                     p = json.dumps({"entity_id": device["entity_id"]})
-                    url_s = url + ":" + port + "/api/services/switch/" + newState
+                    url_s = url + ":" + port + "/api/services/switch/" + newS
                     request = requests.post(url_s, headers=headers, data=p)
                     if format(request.status_code) == "200" or \
                        format(request.status_code) == "201":
@@ -84,6 +84,6 @@ def isAction(text):
 
 
 def isValid(text):
-    return any(word in text for word in [u"开启家庭助手", \
-                                         u"开启助手", u"打开家庭助手", u"打开助手", \
+    return any(word in text for word in [u"开启家庭助手", 
+                                         u"开启助手", u"打开家庭助手", u"打开助手", 
                                          u"家庭助手"])
