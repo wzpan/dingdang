@@ -84,6 +84,6 @@ def isAction(text):
 
 
 def isValid(text):
-    return any(word in text for word in [u"开启家庭助手", 
-                                         u"开启助手", u"打开家庭助手", u"打开助手", 
+    return any(word in text for word in [u"开启家庭助手",
+                                         u"开启助手", u"打开家庭助手", u"打开助手",
                                          u"家庭助手"])
