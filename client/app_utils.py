@@ -8,6 +8,7 @@ from pytz import timezone
 import time
 import subprocess
 
+
 def sendEmail(SUBJECT, BODY, ATTACH_LIST, TO, FROM, SENDER,
               PASSWORD, SMTP_SERVER, SMTP_PORT):
     """Sends an email."""
@@ -133,6 +134,7 @@ def getTimezone(profile):
 
 
 def create_reminder(remind_event, remind_time):
+    _logger = logging.getLogger(__name__)
     if len(remind_time) == 14:
         cmd = 'task add ' + remind_event + ' due:' +\
             remind_time[:4] + '-' + remind_time[4:6] + '-' + \

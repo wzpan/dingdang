@@ -7,6 +7,7 @@ import logging
 import app_utils
 import time
 
+
 class Notifier(object):
 
     class NotificationClient(object):
@@ -33,8 +34,7 @@ class Notifier(object):
             self._logger.debug('email account not set ' +
                                'in profile, email notifier will not be used')
 
-        if 'robot' in profile and \
-            profile['robot'] == 'emotibot':
+        if 'robot' in profile and profile['robot'] == 'emotibot':
             self.notifiers.append(self.NotificationClient(
                 self.handleRemenderNotifications, None))
 
@@ -72,7 +72,6 @@ class Notifier(object):
 
         return lastDate
 
-
     def handleRemenderNotifications(self, lastDate):
         lastDate = time.strftime('%d %b %Y %H:%M:%S')
         due_reminders = app_utils.get_due_reminders()
@@ -80,7 +79,6 @@ class Notifier(object):
             self.q.put(reminder)
 
         return lastDate
-
 
     def getNotification(self):
         """Returns a notification. Note that this function is consuming."""
