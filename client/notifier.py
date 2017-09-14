@@ -4,7 +4,8 @@ import atexit
 from plugins import Email
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging
-
+import app_utils
+import time
 
 class Notifier(object):
 
@@ -31,6 +32,11 @@ class Notifier(object):
         else:
             self._logger.debug('email account not set ' +
                                'in profile, email notifier will not be used')
+
+        if 'robot' in profile and \
+            profile['robot'] == 'emotibot':
+            self.notifiers.append(self.NotificationClient(
+                self.handleRemenderNotifications, None))
 
         sched = BackgroundScheduler(daemon=True)
         sched.start()
@@ -65,6 +71,16 @@ class Notifier(object):
             self.q.put(styleEmail(e))
 
         return lastDate
+
+
+    def handleRemenderNotifications(self, lastDate):
+        lastDate = time.strftime('%d %b %Y %H:%M:%S')
+        due_reminders = app_utils.get_due_reminders()
+        for reminder in due_reminders:
+            self.q.put(reminder)
+
+        return lastDate
+
 
     def getNotification(self):
         """Returns a notification. Note that this function is consuming."""
