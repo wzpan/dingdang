@@ -51,7 +51,7 @@ def hass(text, mic, profile):
             if isinstance(dingdang, list):
                 if text in dingdang:
                     try:
-                        measurement = device["attributes"]["unit_of_measurement"]
+                        measurement = attributes["unit_of_measurement"]
                     except Exception, e:
                         pass
                     if 'measurement' in locals().keys():
@@ -66,7 +66,8 @@ def hass(text, mic, profile):
                     try:
                         act = dingdang[text]
                         p = json.dumps({"entity_id": device["entity_id"]})
-                        url_s = url + ":" + port + "/api/services/switch/" + act
+                        s = "/api/services/switch/"
+                        url_s = url + ":" + port + s + act
                         request = requests.post(url_s, headers=headers, data=p)
                         if format(request.status_code) == "200" or \
                            format(request.status_code) == "201":
