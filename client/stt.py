@@ -14,7 +14,6 @@ import dingdangpath
 import diagnose
 import vocabcompiler
 from uuid import getnode as get_mac
-import time
 import hashlib
 import datetime
 import hmac
@@ -358,7 +357,7 @@ class IFlyTekSTT(AbstractSTTEngine):
             'api_key': self.api_key,
             'XParam': XParam
         }
-        r = requests.post('http://api.musiiot.top/stt.php',data=data)
+        r = requests.post('http://api.musiiot.top/stt.php', data=data)
         try:
             r.raise_for_status()
             text = ''
