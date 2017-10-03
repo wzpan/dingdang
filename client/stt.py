@@ -315,7 +315,7 @@ class IFlyTekSTT(AbstractSTTEngine):
 
     SLUG = "iflytek-stt"
 
-    def __init__(self, api_id, api_key， url):
+    def __init__(self, api_id, api_key, url):
         self._logger = logging.getLogger(__name__)
         self.api_id = api_id
         self.api_key = api_key
