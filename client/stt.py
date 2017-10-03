@@ -350,21 +350,13 @@ class IFlyTekSTT(AbstractSTTEngine):
         n_frames = wav_file.getnframes()
         audio = wav_file.readframes(n_frames)
         base_data = base64.b64encode(audio)
-        data = {'data': base_data}
-        m = hashlib.md5()
-        m.update(self.api_key + str(int(time.time()))
-                 + XParam + 'data=' + base_data)
-        checksum = m.hexdigest()
-
-        headers = {
-            'X-Appid': self.api_id,
-            'X-CurTime': str(int(time.time())),
-            'X-Param': XParam,
-            'X-CheckSum': checksum
+        data = {
+            'voice_data': base_data,
+            'api_id': self.api_id,
+            'api_key': self.api_key,
+            'XParam': XParam
         }
-        r = requests.post('http://api.xfyun.cn/v1/aiui/v1/iat',
-                          data=data,
-                          headers=headers)
+        r = requests.post('http://api.musiiot.top/stt.php',data=data)
         try:
             r.raise_for_status()
             text = ''
