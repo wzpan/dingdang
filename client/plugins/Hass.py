@@ -45,11 +45,6 @@ def hass(text, mic, profile):
             entity = requests.get(url_entity, headers=headers).json()
             devices.append(entity)
     for device in devices:
-        #name = device["attributes"]["friendly_name"]
-        state = device["state"]
-        attributes = device["attributes"]
-        domain = device["entity_id"].split(".")[0]
-        if 'dingdang' in attributes.keys():
             dingdang = attributes["dingdang"]
             if isinstance(dingdang, list):
                 if text in dingdang:
