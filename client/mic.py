@@ -338,7 +338,7 @@ class Mic:
         if self.wxbot is not None:
             wechatUser(self.profile, self.wxbot, "%s: %s" %
                        (self.robot_name, phrase), "")
-        # incase calling say() method which 
+        # incase calling say() method which
         # have not implement cache feature yet.
         # the count of args should be 3.
         if self.speaker.say.func_code.co_argcount > 2:

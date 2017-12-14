@@ -84,7 +84,7 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
     Generic class that implements the 'play' method for mp3 files
     """
     SLUG = ''
-    
+   
     @classmethod
     def is_available(cls):
         return (super(AbstractMp3TTSEngine, cls).is_available() and
@@ -117,7 +117,7 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
                 "found speech in cache, playing...[%s]" % cache_file_path)
             self.play_mp3(cache_file_path)
         else:
-            tmpfile = self.get_speech(phrase)  
+            tmpfile = self.get_speech(phrase)
             if tmpfile is not None:
                 self.play_mp3(tmpfile)
                 if cache:
