@@ -83,6 +83,8 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
     """
     Generic class that implements the 'play' method for mp3 files
     """
+    SLUG = ''
+    
     @classmethod
     def is_available(cls):
         return (super(AbstractMp3TTSEngine, cls).is_available() and
@@ -106,19 +108,26 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
 
     def say(self, phrase, cache=False):
         self._logger.debug(u"Saying '%s' with '%s'", phrase, self.SLUG)
-        cache_file_path = dingdangpath.data('audio', self.SLUG + phrase + '.mp3')
+        cache_file_path = dingdangpath.data(
+            'audio',
+            self.SLUG + phrase + '.mp3'
+        )
         if cache and os.path.exists(cache_file_path):
-            self._logger.info("found speech in cache, playing...[%s]" % cache_file_path)
+            self._logger.info(
+                "found speech in cache, playing...[%s]" % cache_file_path)
             self.play_mp3(cache_file_path)
         else:
-            tmpfile = self.get_speech(phrase)
+            tmpfile = self.get_speech(phrase)  
             if tmpfile is not None:
                 self.play_mp3(tmpfile)
                 if cache:
-                    self._logger.info("not found speech in cache, caching...[%s]" % cache_file_path)
-                    os.rename(tmpfile,cache_file_path)
+                    self._logger.info(
+                        "not found speech in cache," +
+                        " caching...[%s]" % cache_file_path)
+                    os.rename(tmpfile, cache_file_path)
                 else:
                     os.remove(tmpfile)
+
 
 class SimpleMp3Player(AbstractMp3TTSEngine):
     """
@@ -539,7 +548,6 @@ class BaiduTTS(AbstractMp3TTSEngine):
             return tmpfile
 
 
-
 class IFlyTekTTS(AbstractMp3TTSEngine):
     """
     使用讯飞的语音合成技术
@@ -594,7 +602,6 @@ class IFlyTekTTS(AbstractMp3TTSEngine):
             f.write(r.content)
             tmpfile = f.name
             return tmpfile
-
 
 
 class ALiBaBaTTS(AbstractMp3TTSEngine):
