@@ -84,7 +84,7 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
     Generic class that implements the 'play' method for mp3 files
     """
     SLUG = ''
-   
+
     @classmethod
     def is_available(cls):
         return (super(AbstractMp3TTSEngine, cls).is_available() and
