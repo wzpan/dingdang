@@ -16,7 +16,7 @@ install:
     - "pip install -r client/requirements.txt --cache-dir $HOME/.pip-cache"
     - "pip install coverage --cache-dir $HOME/.pip-cache"
     - "pip install nose --cache-dir $HOME/.pip-cache"
-    - "pip install flake8 --cache-dir $HOME/.pip-cache"
+    - "pip install flake8 --cache-dir $HOME/.pip-cache" --show-source
 before_script:
     - "flake8 --exclude=wxbot.py,snowboydetect.py dingdang.py client"
 script:
