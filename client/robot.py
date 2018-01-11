@@ -108,8 +108,8 @@ class TulingRobot(AbstractRobot):
         except Exception:
             self._logger.critical("Tuling robot failed to responsed for %r",
                                   msg, exc_info=True)
-            self.mic.say("抱歉, 我的大脑短路了 " +
-                         "请稍后再试试.", cache=True)
+            self.mic.say("哎，好累，我的大脑短路了 " +
+                         "请稍后再试吧.", cache=True)
 
 
 class Emotibot(AbstractRobot):
@@ -183,7 +183,7 @@ class Emotibot(AbstractRobot):
                     if not create_reminder(remind_event, remind_time):
                         result = u'创建提醒失败了'
             else:
-                result = u"抱歉, 我的大脑短路了，请稍后再试试."
+                result = u"哎,好累,我的大脑短路了,请稍后再试试."
             max_length = 200
             if 'max_length' in self.profile:
                 max_length = self.profile['max_length']
@@ -208,7 +208,7 @@ class Emotibot(AbstractRobot):
         except Exception:
             self._logger.critical("Emotibot failed to responsed for %r",
                                   msg, exc_info=True)
-            self.mic.say("抱歉, 我的大脑短路了 " +
+            self.mic.say("哎,好累,我的大脑短路了 " +
                          "请稍后再试试.", cache=True)
 
 
