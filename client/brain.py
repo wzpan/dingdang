@@ -112,7 +112,7 @@ class Brain(object):
                     except Exception:
                         self._logger.error('Failed to execute plugin',
                                            exc_info=True)
-                        reply = u"抱歉，我的大脑出故障了，晚点再试试吧"
+                        reply = u"抱歉，我脑抽抽抽抽了，稍等让我休息下"
                         self.mic.say(reply)
                     else:
                         self._logger.debug("Handling of phrase '%s' by " +
