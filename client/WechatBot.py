@@ -35,7 +35,7 @@ class WechatBot(WXBot):
         profile = self.brain.profile
         if (msg['msg_type_id'] == 1 and
            (msg['to_user_id'] == self.my_account['UserName'] or
-            msg['to_user_id'] == u'filehelper')):
+             msg['to_user_id'] == u'filehelper')):
             from_user = profile['first_name'] + '说：'
             if msg['content']['type'] == 0:
                 msg_data = from_user + msg['content']['data']
