@@ -201,7 +201,7 @@ class PocketSphinxSTT(AbstractSTTEngine):
 
     def transcribe_keyword(self, data):
         """
-        Performs STT, transcribing the keyword audio file 
+        Performs STT, transcribing the keyword audio file
         and returning the result.
 
         Arguments:
@@ -642,7 +642,7 @@ class SnowboySTT(AbstractSTTEngine):
 
     def transcribe_keyword(self, data):
         """
-        Performs STT, transcribing the keyword audio file 
+        Performs STT, transcribing the keyword audio file
         and returning the result.
 
         Arguments:
