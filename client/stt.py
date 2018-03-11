@@ -157,7 +157,6 @@ class PocketSphinxSTT(AbstractSTTEngine):
 
         self._decoder = ps.Decoder(ps_config)
 
-
     def __del__(self):
         os.remove(self._logfile)
 
@@ -196,7 +195,6 @@ class PocketSphinxSTT(AbstractSTTEngine):
         self._decoder.process_raw(data, False, True)
         self._decoder.end_utt()
 
-        #支持新版PocketSphinx API
         result = []
         transcribed = []
         hyp = self._decoder.hyp()
@@ -206,8 +204,8 @@ class PocketSphinxSTT(AbstractSTTEngine):
                 self._logger.debug(line.strip())
             f.truncate()
 
-        if hyp and len(hyp.hypstr)>1:
-            result = hyp.hypstr.split( )
+        if hyp and len(hyp.hypstr) > 1:
+            result = hyp.hypstr.split(' ')
             transcribed = [result[0]]
             self._logger.info('PocketSphinx 识别到了：%r', transcribed)
         else:
@@ -231,12 +229,11 @@ class PocketSphinxSTT(AbstractSTTEngine):
         self._decoder.process_raw(data, False, True)
         self._decoder.end_utt()
 
-        #支持新版PocketSphinx API
         result = []
         transcribed = []
         hyp = self._decoder.hyp()
         if hyp and len(hyp.hypstr)>1:
-            result = hyp.hypstr.split( )
+            result = hyp.hypstr.split(' ')
             transcribed = [result[0]]
             self._logger.info('PocketSphinx 识别到了：%r', transcribed)
         else:
@@ -371,7 +368,8 @@ class BaiduSTT(AbstractSTTEngine):
                 transcribed.append(text.upper())
                 self._logger.info(u'百度语音识别到了: %s' % text)
             else:
-                self._logger.info(u'百度语音识别错误: 错误码：%s,错误信息：%s', r.json()['err_no'],r.json()['err_msg'])
+                self._logger.info(u'百度语音识别错误: 错误码：%s,错误信息：%s', r.json()['err_no'],
+                    r.json()['err_msg'])
 
             return transcribed
 
