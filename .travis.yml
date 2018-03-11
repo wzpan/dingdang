@@ -19,5 +19,7 @@ install:
     - "pip install flake8 --cache-dir $HOME/.pip-cache"
 before_script:
     - "flake8 --exclude=wxbot.py,snowboydetect.py dingdang.py client --show-source"
+before_install:
+    - sudo apt-get install -y swig
 script:
     - "nosetests -s --exe -v --with-coverage --cover-erase"
