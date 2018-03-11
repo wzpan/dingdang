@@ -54,16 +54,18 @@ class Mic:
 
         if 'sound_card' in profile:
             sound_card = {'input': "", 'output': "",
-                'input_volume': 0.5, 'output_volume': 0.5}
+                          'input_volume': 0.5, 'output_volume': 0.5}
             sound_card['input'] = profile['sound_card']['input']
             sound_card['input_volume'] = profile['sound_card']['input_volume']
             sound_card['output'] = profile['sound_card']['output']
             sound_card['output_volume'] = \
                 profile['sound_card']['output_volume']
-            self._logger.info("Setting Sound Input Device : %s, Volume: %s", \
-                sound_card['input'], sound_card['input_volume'])
-            self._logger.info("Setting Sound Output Device : %s Volume: %s", \
-                sound_card['output'], sound_card['output_volume'])
+            self._logger.info("Setting Sound Input Device : %s, Volume: %s",
+                              sound_card['input'], sound_card['input_volume'])
+            self._logger.info(
+                "Setting Sound Output Device : %s Volume: %s",
+                sound_card['output'],
+                sound_card['output_volume'])
             self._pulse = pulsectl.Pulse('my-dingdang-robot-audio-pulse')
             card_list = self._pulse.card_list()
             sink_list = self._pulse.sink_list()
@@ -76,31 +78,37 @@ class Mic:
             for k, v in enumerate(source_list):
                 if sound_card['input'] == v.name:
                     index_input = k
-                    self._logger.info("Loading Sound Input List" + \
-                        " %s <Current>: name:%s , description: %s ", \
-                        k, v.name, v.description)
+                    self._logger.info(
+                        "Loading Sound Input List" +
+                        " %s <Current>: name:%s , description: %s ",
+                        k,
+                        v.name,
+                        v.description)
                 else:
-                    self._logger.info("Loading Sound Input List" + \
-                        " %s : name: %s , description: %s ", \
-                        k, v.name, v.description)
+                    self._logger.info("Loading Sound Input List" +
+                                      " %s : name: %s , description: %s ",
+                                      k, v.name, v.description)
 
             for k, v in enumerate(sink_list):
                 if sound_card['output'] == v.name:
                     index_output = k
-                    self._logger.info("Loading Sound Output List" + \
-                        " %s <Current Config Set> : name:%s , description: %s ", \
-                        k, v.name, v.description)
+                    self._logger.info(
+                        "Loading Sound Output List" +
+                        " %s <Current Config Set> : name:%s , description: %s ",
+                        k,
+                        v.name,
+                        v.description)
                 else:
-                    self._logger.info("Loading Sound Output List" + \
-                        " %s : name: %s , description: %s ", \
-                        k, v.name, v.description)
+                    self._logger.info("Loading Sound Output List" +
+                                      " %s : name: %s , description: %s ",
+                                      k, v.name, v.description)
 
             default_sink_name = self._pulse.server_info().default_sink_name
             default_source_name = self._pulse.server_info().default_source_name
-            self._logger.info("User Default Sound Output Device : %s", \
-                default_sink_name)
-            self._logger.info("User Default Sound Input Device : %s", \
-                default_source_name)
+            self._logger.info("User Default Sound Output Device : %s",
+                              default_sink_name)
+            self._logger.info("User Default Sound Input Device : %s",
+                              default_source_name)
             self._pulse.default_set(sink_list[index_output])
             self._pulse.default_set(source_list[index_input])
             input_volume = source_list[index_input].volume
@@ -115,10 +123,16 @@ class Mic:
             source_list = self._pulse.source_list()
             input_volume = source_list[index_input].volume
             output_volume = sink_list[index_output].volume
-            self._logger.info("Robot Current Sound Input Device:" + \
-                " %s ,Volume: %s", default_source_name, input_volume)
-            self._logger.info("Robot Current Sound Output Device:" + \
-                " %s ,Volume: %s", default_sink_name, output_volume)
+            self._logger.info(
+                "Robot Current Sound Input Device:" +
+                " %s ,Volume: %s",
+                default_source_name,
+                input_volume)
+            self._logger.info(
+                "Robot Current Sound Output Device:" +
+                " %s ,Volume: %s",
+                default_sink_name,
+                output_volume)
 
         self._audio = pyaudio.PyAudio()
         self._logger.info("Initialization of PyAudio completed.")

@@ -368,8 +368,8 @@ class BaiduSTT(AbstractSTTEngine):
                 transcribed.append(text.upper())
                 self._logger.info(u'百度语音识别到了: %s' % text)
             else:
-                self._logger.info(u'百度语音识别错误: code: %s, msg: %s', \
-                    r.json()['err_no'], r.json()['err_msg'])
+                self._logger.info(u'百度语音识别错误: code: %s, msg: %s',
+                                  r.json()['err_no'], r.json()['err_msg'])
 
             return transcribed
 
@@ -851,7 +851,7 @@ def get_engine_by_slug(slug=None):
         ValueError if no speaker implementation is supported on this platform
     """
 
-    if not slug or type(slug) is not str:
+    if not slug or not isinstance(slug, str):
         raise TypeError("Invalid slug '%s'", slug)
 
     selected_engines = filter(lambda engine: hasattr(engine, "SLUG") and
