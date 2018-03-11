@@ -232,7 +232,7 @@ class PocketSphinxSTT(AbstractSTTEngine):
         result = []
         transcribed = []
         hyp = self._decoder.hyp()
-        if hyp and len(hyp.hypstr)>1:
+        if hyp and len(hyp.hypstr) > 1:
             result = hyp.hypstr.split(' ')
             transcribed = [result[0]]
             self._logger.info('PocketSphinx 识别到了：%r', transcribed)
@@ -368,8 +368,8 @@ class BaiduSTT(AbstractSTTEngine):
                 transcribed.append(text.upper())
                 self._logger.info(u'百度语音识别到了: %s' % text)
             else:
-                self._logger.info(u'百度语音识别错误: 错误码：%s,错误信息：%s', r.json()['err_no'],
-                    r.json()['err_msg'])
+                self._logger.info(u'百度语音识别错误: code: %s, msg: %s', \
+                    r.json()['err_no'], r.json()['err_msg'])
 
             return transcribed
 
