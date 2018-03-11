@@ -94,7 +94,8 @@ class Mic:
                     index_output = k
                     self._logger.info(
                         "Loading Sound Output List" +
-                        " %s <Current Config Set> : name:%s , description: %s ",
+                        " %s <Current Config Set> : name:%s , " +
+                        "description: %s ",
                         k,
                         v.name,
                         v.description)
